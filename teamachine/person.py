@@ -11,4 +11,3 @@ class Person:
             self.photo_path = new_photo_path
         else:
             raise IOError
-        
