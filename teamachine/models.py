@@ -16,12 +16,18 @@ _LOW_WATER = 100  #ml
 class Manufacturer(models.Model):
     name = models.CharField(max_length = 30)
 
+    def __str__(self):
+        return self.name
+
 class Teataste(models.Model):
     name = models.CharField(max_length = 30)
     manufacturer = models.ForeignKey(Manufacturer, null=True, blank=True)
     origin = models.CharField(max_length = 50)
     description = models.CharField(max_length = 500)
     photo_path = models.CharField(max_length = 50)
+
+    def __str__(self):
+        return self.name
 
     def set_manufacturer(self, manufacturer):
         manufacturer_list = Manufacturer.objects.all()
@@ -40,6 +46,9 @@ class Tea(models.Model):
     sugar_wg = models.IntegerField(default = _NO_SUGAR)
     taste_list = models.ManyToManyField(Teataste, null=True, blank=True)
 
+    def __str__(self):
+        return self.name
+
 class User(models.Model):
     name = models.CharField(max_length = 50)
     mail = models.CharField(max_length = 30)
@@ -47,6 +56,9 @@ class User(models.Model):
     nick_name = models.CharField(max_length = 20)
     password = models.CharField(max_length = 20)
     my_tea_list = models.ManyToManyField(Tea, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
     def add_a_tea(self, tea):
         if not isinstance(tea, Tea):
