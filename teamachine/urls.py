@@ -5,4 +5,9 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name = 'index'),
+    url(r'^(?P<user_id>[0-9]+)/$', views.home, name='home'),
+    url(r'^(?P<user_id>[0-9]+)/create/$', views.create, name='create'),
+    url(r'^(?P<user_id>[0-9]+)/order/$', views.order, name='order'),
+    url(r'^(?P<user_id>[0-9]+)/manage/$', views.manage, name='manage'),
+    url(r'^(?P<user_id>[0-9]+)/help/$', views.help, name='help'),
 ]
