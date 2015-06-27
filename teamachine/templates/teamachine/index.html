@@ -1,0 +1,10 @@
+{% if user_list %}
+    <p>Select which user would you like to log in.</p>
+    <ul>
+    {% for user in user_list %}
+        <li><a href="/teamachine/{{ user.id }}/">{{ user.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No user detected. Create one.</p>
+{% endif %}
