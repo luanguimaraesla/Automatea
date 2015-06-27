@@ -1,6 +1,7 @@
 __author__ = 'luan'
 
 from teataste import TeaTaste
+from models import TeaDB
 
 class Tea:
     _HIGH_SUGAR = 25 #g
@@ -13,6 +14,7 @@ class Tea:
     _LOW_WATER = 100  #ml
 
     def __init__(self, name, taste, water_ml = _MID_WATER, sugar_wg = _MID_SUGAR):
+        self.on_DB = TeaDB(name = name, water_ml = water_ml, sugar_wg = sugar_wg)
         self.name = name
         self.taste_list = []
         self.append_taste_list(taste)
@@ -24,5 +26,6 @@ class Tea:
             raise IOError
         elif isinstance(taste, TeaTaste):
             self.taste_list.append(taste)
+
         elif isinstance(taste, list) or isinstance(taste, tuple):
             self.taste_list.extend(list(taste))
