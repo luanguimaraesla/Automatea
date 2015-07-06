@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 
 
 # Create your models here.
@@ -13,15 +12,15 @@ _MID_WATER = 250  #ml
 _LOW_WATER = 100  #ml
 
 
-class Manufacturer(models.Model):
+class Manufacturerdb(models.Model):
     name = models.CharField(max_length = 30)
 
     def __str__(self):
         return self.name
 
-class Teataste(models.Model):
+class Teatastedb(models.Model):
     name = models.CharField(max_length = 30)
-    manufacturer = models.ForeignKey(Manufacturer, null=True, blank=True)
+    manufacturer = models.ForeignKey(Manufacturerdb, null=True, blank=True)
     origin = models.CharField(max_length = 50)
     description = models.CharField(max_length = 500)
     photo_path = models.CharField(max_length = 50)
@@ -30,46 +29,47 @@ class Teataste(models.Model):
         return self.name
 
     def set_manufacturer(self, manufacturer):
-        manufacturer_list = Manufacturer.objects.all()
+        manufacturer_list = Manufacturerdb.objects.all()
         for each_manufacturer in manufacturer_list:
             if each_manufacturer.name == manufacturer:
-                each_manufacturer.teataste_set.add(self)
+                each_manufacturer.teatastedb_set.add(self)
                 break
         else:
-            newMf = Manufacturer(name = manufacturer)
+            newMf = Manufacturerdb(name = manufacturer)
             newMf.save()
-            newMf.teataste_set.add(self)
+            newMf.teatastedb_set.add(self)
+            newMf.save()
 
-class Tea(models.Model):
+class Teadb(models.Model):
     name = models.CharField(max_length = 30)
     water_ml = models.IntegerField(default = _MID_WATER)
     sugar_wg = models.IntegerField(default = _NO_SUGAR)
-    taste_list = models.ManyToManyField(Teataste, null=True, blank=True)
+    taste_list = models.ManyToManyField(Teatastedb, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
-class User(models.Model):
+class Userdb(models.Model):
     name = models.CharField(max_length = 50)
     mail = models.CharField(max_length = 30)
     photo_path = models.CharField(max_length = 50)
     nick_name = models.CharField(max_length = 20)
     password = models.CharField(max_length = 20)
-    my_tea_list = models.ManyToManyField(Tea, null=True, blank=True)
+    my_tea_list = models.ManyToManyField(Teadb, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
     def add_a_tea(self, tea):
-        if not isinstance(tea, Tea):
+        if not isinstance(tea, Teadb):
             raise IOError
 
-        self.my_tea_list_set.add(tea)
+        self.my_tea_list.add(tea)
 
     def create_tea(self, name, taste, water = 250, sugar = 0):
         newtea = self.my_tea_list.create(name = name, water_ml = water, sugar_wg = sugar)
         if taste:
-            if isinstance(taste, Teataste):
+            if isinstance(taste, Teatastedb):
                 self.my_tea_list.taste_list.add(taste)
             elif isinstance(taste, list):
                 for each_taste in taste:
@@ -96,7 +96,12 @@ class User(models.Model):
 
         self.save()
 
+    def get_user_by_id(self, user_id):
+        return Userdb.objects.get(pk = id)
 
+    def get_id_by_name(self, user_name):
+        return Userdb.objects.get(name = user_name)
 
-
+    def get_all_users(self):
+        return Userdb.objects.all()
 
