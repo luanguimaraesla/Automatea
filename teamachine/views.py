@@ -5,7 +5,7 @@ from .models import *
 
 # Create your views here.
 def index(request):
-    user_list = User.objects.all()
+    user_list = Userdb.objects.all()
     template = loader.get_template('teamachine/index.html')
     context = RequestContext(request, {'user_list' : user_list,})
     return HttpResponse(template.render(context))
