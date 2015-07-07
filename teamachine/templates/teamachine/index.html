@@ -1,5 +1,5 @@
 {% if user_list %}
-    <p>Select which user would you like to log in.</p>
+    <p>Selecione o usuario para entrar:</p>
     <ul>
     {% for user in user_list %}
         <li><a href="/teamachine/{{ user.id }}/">{{ user.name }}</a></li>
@@ -8,4 +8,4 @@
 {% else %}
     <p>No user detected.</p>
 {% endif %}
-    <p><b><a href="/teamachine/singup/">Sing up, create your account.</a></b></p>
+    <p><b><a href="/teamachine/singup/">Criar um novo usuario.</a></b></p>
