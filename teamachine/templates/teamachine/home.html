@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <h1>Voce acessou como: {{ logged_user.name }}</h1><br>
+    <p>Seus chas preferidos sao:</p><br><br>
+    <form action="/teamachine/{{ logged_user.id }}/order/{{ tea.id }}/" method="POST">
+        {% csrf_token %}
+        {% for tea in user.my_tea_list.all %}
+            <input type="radio" name="tea" id="tea{{ forloop.counter }}" value="{{ tea.id }}" />
+            <label for="tea{{ forloop.counter }}">{{ tea.name }}</label><br />
+        {% endfor %}
+    <input type="submit" value="Fazer Pedido" />
+    </form>
+
+</body>
+</html>
