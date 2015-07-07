@@ -111,11 +111,16 @@ def execute(request, user_id):
     template = loader.get_template('teamachine/execute.html')
     context = RequestContext(request, {'logged_user' : logged_user,})
 
-    time_delay = 5
+    time_delay = 0.5
     motor_pin = "P9_11"
+    x = 5
     GPIO.setup(motor_pin, GPIO.OUT)
-    GPIO.output(motor_pin, GPIO.HIGH)
-    time.sleep(time_delay)
-    GPIO.output(motor_pin, GPIO.LOW)
 
+    while(x):
+        GPIO.output(motor_pin, GPIO.HIGH)
+        time.sleep(time_delay)
+        GPIO.output(motor_pin, GPIO.LOW)
+        time.sleep(time_delay)
+        x -= 1
+        
     return HttpResponse(template.render(context))
