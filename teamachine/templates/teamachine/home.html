@@ -7,7 +7,7 @@
 <body>
 
     <h2>Voce acessou como: {{ logged_user.name }}</h2>
-    <p>Seus chas preferidos sao:</p>
+    <p>Seus chás preferidos sao:</p>
     <form action="/teamachine/{{ logged_user.id }}/order/" method="POST">
         {% csrf_token %}
         {% for each_tea in logged_user.my_tea_list.all %}
@@ -17,7 +17,7 @@
     <input type="submit" value="Fazer Pedido" />
     </form>
 
-    <p><a href="/teamachine/{{ logged_user.id }}/create/">Registre um novo sabor</a></p>
+    <p><a href="/teamachine/{{ logged_user.id }}/create/">Crie um novo chá!</a></p>
 
 </body>
 </html>
