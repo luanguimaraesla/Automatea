@@ -70,10 +70,10 @@ class User(models.Model):
         newtea = self.my_tea_list.create(name = name, water_ml = water, sugar_wg = sugar)
         if taste:
             if isinstance(taste, Teataste):
-                self.my_tea_list.taste_list.add(taste)
+                newtea.taste_list.add(taste)
             elif isinstance(taste, list):
                 for each_taste in taste:
-                    self.my_tea_list.taste_list.add(taste)
+                    newtea.taste_list.add(each_taste)
 
         newtea.save()
         return newtea
