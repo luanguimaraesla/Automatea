@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.template.context_processors import csrf
 from .models import *
-#import Adafruit_BBIO.GPIO as GPIO
-#import time
+import Adafruit_BBIO.GPIO as GPIO
+import time
 
 # Create your views here.
 def index(request):
@@ -111,11 +111,11 @@ def execute(request, user_id):
     template = loader.get_template('teamachine/execute.html')
     context = RequestContext(request, {'logged_user' : logged_user,})
 
-    #time_delay = 5
-    #motor_pin = "P9_11"
-    #GPIO.setup(motor_pin, GPIO.OUT)
-    #GPIO.output(motor_pin, GPIO.HIGH)
-    #time.sleep(time_delay)
-    #GPIO.output(motor_pin, GPIO.LOW)
+    time_delay = 5
+    motor_pin = "P9_11"
+    GPIO.setup(motor_pin, GPIO.OUT)
+    GPIO.output(motor_pin, GPIO.HIGH)
+    time.sleep(time_delay)
+    GPIO.output(motor_pin, GPIO.LOW)
 
     return HttpResponse(template.render(context))
