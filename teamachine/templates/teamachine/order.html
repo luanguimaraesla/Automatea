@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <h2>Pedido: <b>{{ selected_tea.name }}</b></h2>
+    <p>Agua: {{ selected_tea.water_ml }} ml</p>
+
+    <h3>Sabores:</h3>
+    <ul>
+        {% for each_taste in selected_tea.taste_list.all %}
+            <li>
+                <p>Nome: {{ each_taste.name }}</p>
+                <p>Marca: {{ each_taste.manufacturer }}</p>
+                <p>Origem: {{ each_taste.origin}}</p>
+                <p>Descricao: {{ each_taste.description }}</p>
+                <p></p>
+            </li>
+        {% endfor %}
+    </ul>
+    <br>
+
+    <p>Confirmar pedido</p>
+    <p><a href="{% url 'home' logged_user.id %}">Voltar</a></p>
+
+</body>
+</html>
