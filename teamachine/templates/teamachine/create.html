@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1>Crie um novo cha:<br /></h1>
+    <form action="{% url 'tearegister' logged_user.id %}" method="POST">
+        {% csrf_token %}
+
+        <p>Nome:</p>
+        <input type="text" name="name" id="name">
+        <br>
+
+        <p>Quantidade de agua:</p>
+        <input type="text" name="water_ml" id="water_ml">ml
+        <br>
+
+        <p>Sabores:</p>
+        {% for each_taste in taste_list.all %}
+            <input type="checkbox" name="checks" id="{{ forloop.counter }}" value="{{ each_taste.id }}" />
+            <label for="{{ forloop.counter }}">{{ each_taste.name }}</label><br>
+        {% endfor %}
+         <input type="submit" value="Criar" />
+    </form>
+
+</body>
+</html>
